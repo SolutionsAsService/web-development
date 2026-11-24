@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { TOOLS, BY_ID, CAT_BY_ID, REGIONS, alternativesOf, buildsOn, usedBy, stacksWith, toolsIn, regionOf, href } from '../../lib/atlas';
+export function getStaticPaths() { return TOOLS.map(t => ({ params: { id: t.id }, props: { t } })); }
+const { t } = Astro.props;
+const cat = CAT_BY_ID[t.cat]; const region = regionOf(t.cat); const reg = REGIONS.find(r => r.id === region)!;
+const alts = alternativesOf(t.id).map(i => BY_ID[i]); const on = buildsOn(t.id).map(i => BY_ID[i]); const by = usedBy(t.id).map(i => BY_ID[i]);
+const stacks = stacksWith(t.id); const near = toolsIn(t.cat).filter(x => x.id !== t.id && !alts.some(a => a.id === x.id));
+---
+<Base title={t.name} desc={`${t.name}: ${t.what}`} region={region}>
+<div class="wrap">
+  <div class="tool-head" data-region={region}>
+    <p class="eyebrow" style="margin-top:0">{reg.name} · <a href={href(`category/${cat.id}`)}>{cat.name}</a></p>
+    <h1>{t.name}</h1>
+    <p class="lede">{t.what}</p>
+    <a class="btn" href={t.url} rel="noopener">Official site</a>
+  </div>
+  <div class="two">
+    {alts.length > 0 && <section><h2>Alternatives</h2><p class="note">Tools that do the same job; the choice is usually about fit, not quality.</p>
+      <ul class="cards">{alts.map(a => <li data-region={regionOf(a.cat)}><a class="card" href={href(`tools/${a.id}`)}><b>{a.name}</b><span>{a.what}</span></a></li>)}</ul></section>}
+    {on.length > 0 && <section><h2>Builds on, or pairs with</h2>
+      <ul class="cards">{on.map(a => <li data-region={regionOf(a.cat)}><a class="card" href={href(`tools/${a.id}`)}><b>{a.name}</b><span>{a.what}</span><em>{CAT_BY_ID[a.cat].name}</em></a></li>)}</ul></section>}
+    {by.length > 0 && <section><h2>Used by, or built on this</h2>
+      <ul class="cards">{by.map(a => <li data-region={regionOf(a.cat)}><a class="card" href={href(`tools/${a.id}`)}><b>{a.name}</b><span>{a.what}</span><em>{CAT_BY_ID[a.cat].name}</em></a></li>)}</ul></section>}
+  </div>
+  {stacks.length > 0 && <section><h2>In these stacks</h2><div class="chips">{stacks.map(s => <a class="chip" href={href(`stacks#${s.id}`)}>{s.name}</a>)}</div></section>}
+  {near.length > 0 && <section><h2>Also in {cat.name}</h2><div class="chips">{near.map(n => <a class="chip" href={href(`tools/${n.id}`)}>{n.name}</a>)}</div></section>}
+</div>
+</Base>

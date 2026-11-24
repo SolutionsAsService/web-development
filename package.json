@@ -1,0 +1,25 @@
+{
+  "name": "web-development-atlas",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "An atlas of the tools of web development: runtimes, frameworks, build tools, testing, data, hosting and the platform itself.",
+  "scripts": {
+    "dev": "astro dev",
+    "validate": "node --experimental-strip-types --no-warnings scripts/validate.mjs",
+    "links": "node --experimental-strip-types --no-warnings scripts/validate.mjs --links",
+    "build": "npm run validate && astro check && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/preact": "^6.1.6",
+    "astro": "^7.4.13",
+    "d3-force": "^3.0.1",
+    "preact": "^11.2.0",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/d3-force": "^3.0.10"
+  }
+}

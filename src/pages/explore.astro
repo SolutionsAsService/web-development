@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import Explorer from '../components/Explorer.tsx';
+import { clientData } from '../lib/atlas';
+---
+<Base title="Explore" desc="Search and filter every tool in the atlas by name, description, territory and category." current="explore">
+<div class="wrap">
+  <p class="eyebrow">Search</p><h1>Explore the atlas</h1>
+  <Explorer client:load data={clientData()} />
+</div>
+</Base>

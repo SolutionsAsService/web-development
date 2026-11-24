@@ -1,0 +1,32 @@
+import { CATEGORIES, REGIONS } from '../data/categories';
+import { TOOLS_A } from '../data/tools-a';
+import { TOOLS_B } from '../data/tools-b';
+import { TOOLS_C } from '../data/tools-c';
+import { ALT, PAIRS, STACKS } from '../data/relations';
+import type { Tool } from '../data/types';
+
+export const TOOLS: Tool[] = [...TOOLS_A, ...TOOLS_B, ...TOOLS_C];
+export const BY_ID = Object.fromEntries(TOOLS.map(t => [t.id, t])) as Record<string, Tool>;
+export const CAT_BY_ID = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
+export { CATEGORIES, REGIONS, STACKS, PAIRS, ALT };
+
+const uniq = <T,>(a: T[]) => [...new Set(a)];
+export const alternativesOf = (id: string) => uniq(ALT.filter(g => g.includes(id)).flat().filter(x => x !== id));
+export const buildsOn = (id: string) => uniq(PAIRS.filter(([a]) => a === id).map(([, b]) => b));
+export const usedBy = (id: string) => uniq(PAIRS.filter(([, b]) => b === id).map(([a]) => a));
+export const stacksWith = (id: string) => STACKS.filter(s => s.picks.some(([, t]) => t === id));
+export const regionOf = (cat: string) => CAT_BY_ID[cat].region;
+export const toolsIn = (cat: string) => TOOLS.filter(t => t.cat === cat);
+export const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+export const href = (p = '') => `${base}/${p}`;
+/** Plain data the browser islands need. */
+export const clientData = () => ({
+  tools: TOOLS.map(t => ({ id: t.id, name: t.name, cat: t.cat, what: t.what, region: regionOf(t.cat) })),
+  cats: CATEGORIES.map(c => ({ id: c.id, name: c.name, region: c.region })),
+  regions: REGIONS,
+  edges: [
+    ...PAIRS.map(([s, t]) => ({ s, t, k: 'pair' })),
+    ...ALT.flatMap(g => g.flatMap((a, i) => g.slice(i + 1).map(b => ({ s: a, t: b, k: 'alt' })))),
+  ],
+  base,
+});

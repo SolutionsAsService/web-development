@@ -1,0 +1,47 @@
+import type { Tool } from './types';
+const row = (id: string, name: string, cat: string, url: string, what: string): Tool => ({ id, name, cat, url, what });
+// Run and reach.
+export const TOOLS_C: Tool[] = [
+  // ---- hosting
+  row('vercel', 'Vercel', 'hosting', 'https://vercel.com/', 'A platform for deploying frontend and full-stack apps; the company behind Next.js.'),
+  row('netlify', 'Netlify', 'hosting', 'https://www.netlify.com/', 'A platform for deploying sites and serverless functions from Git.'),
+  row('cloudflare-pages', 'Cloudflare Pages', 'hosting', 'https://pages.cloudflare.com/', 'Static and full-stack hosting on Cloudflare’s network.'),
+  row('cloudflare-workers', 'Cloudflare Workers', 'hosting', 'https://workers.cloudflare.com/', 'Serverless JavaScript and WebAssembly running at the edge.'),
+  row('deno-deploy', 'Deno Deploy', 'hosting', 'https://deno.com/deploy', 'Hosting for Deno apps on a global network.'),
+  row('fly', 'Fly.io', 'hosting', 'https://fly.io/', 'Runs containers on machines close to users.'),
+  row('render', 'Render', 'hosting', 'https://render.com/', 'A cloud platform for web services, static sites and databases.'),
+  row('railway', 'Railway', 'hosting', 'https://railway.com/', 'A platform for deploying apps and databases from a repo.'),
+  row('heroku', 'Heroku', 'hosting', 'https://www.heroku.com/', 'A long-running platform-as-a-service for web apps.'),
+  row('github-pages', 'GitHub Pages', 'hosting', 'https://pages.github.com/', 'Free static hosting from a GitHub repository.'),
+  row('aws-amplify', 'AWS Amplify', 'hosting', 'https://aws.amazon.com/amplify/', 'Amazon’s hosting and backend tooling for web and mobile apps.'),
+  row('docker', 'Docker', 'hosting', 'https://www.docker.com/', 'Packages applications and dependencies into containers.'),
+  row('kubernetes', 'Kubernetes', 'hosting', 'https://kubernetes.io/', 'An orchestrator for running containers at scale.'),
+  row('nginx', 'nginx', 'hosting', 'https://nginx.org/', 'A web server and reverse proxy.'),
+  row('caddy', 'Caddy', 'hosting', 'https://caddyserver.com/', 'A web server with automatic HTTPS.'),
+  row('coolify', 'Coolify', 'hosting', 'https://coolify.io/', 'A self-hostable platform for deploying apps and databases.'),
+  // ---- devtools
+  row('vscode', 'Visual Studio Code', 'devtools', 'https://code.visualstudio.com/', 'A widely used extensible code editor.'),
+  row('zed', 'Zed', 'devtools', 'https://zed.dev/', 'A fast code editor with built-in collaboration.'),
+  row('neovim', 'Neovim', 'devtools', 'https://neovim.io/', 'A modern Vim-based text editor.'),
+  row('git', 'Git', 'devtools', 'https://git-scm.com/', 'The distributed version control system most projects use.'),
+  row('github', 'GitHub', 'devtools', 'https://github.com/', 'Hosting for Git repositories, with issues, pull requests and automation.'),
+  row('gh-actions', 'GitHub Actions', 'devtools', 'https://github.com/features/actions', 'Automation and CI/CD workflows defined in the repository.'),
+  row('chrome-devtools', 'Chrome DevTools', 'devtools', 'https://developer.chrome.com/docs/devtools', 'Inspect, debug and profile pages in Chrome.'),
+  row('firefox-devtools', 'Firefox Developer Tools', 'devtools', 'https://firefox-source-docs.mozilla.org/devtools-user/', 'Inspect, debug and profile pages in Firefox.'),
+  row('vue-devtools', 'Vue DevTools', 'devtools', 'https://devtools.vuejs.org/', 'Inspect Vue applications and their state.'),
+  row('lighthouse', 'Lighthouse', 'devtools', 'https://developer.chrome.com/docs/lighthouse', 'Automated audits for performance, accessibility and SEO.'),
+  row('web-vitals', 'Core Web Vitals', 'devtools', 'https://web.dev/articles/vitals', 'Google’s user-centred metrics for loading, interactivity and visual stability.'),
+  row('webpagetest', 'WebPageTest', 'devtools', 'https://www.webpagetest.org/', 'Detailed performance testing from real browsers and locations.'),
+  row('sentry', 'Sentry', 'devtools', 'https://sentry.io/', 'Error tracking and performance monitoring.'),
+  row('opentelemetry', 'OpenTelemetry', 'devtools', 'https://opentelemetry.io/', 'A vendor-neutral standard for traces, metrics and logs.'),
+  row('figma', 'Figma', 'devtools', 'https://www.figma.com/', 'A collaborative interface design tool.'),
+  // ---- cross
+  row('react-native', 'React Native', 'cross', 'https://reactnative.dev/', 'Native mobile apps written with React.'),
+  row('expo', 'Expo', 'cross', 'https://expo.dev/', 'A framework and services for building React Native apps.'),
+  row('flutter', 'Flutter', 'cross', 'https://flutter.dev/', 'A UI toolkit for apps on mobile, web and desktop from one codebase.'),
+  row('electron', 'Electron', 'cross', 'https://www.electronjs.org/', 'Desktop apps built with web technologies and bundled Chromium.'),
+  row('tauri', 'Tauri', 'cross', 'https://tauri.app/', 'Desktop and mobile apps with a web UI and a Rust core, using the system webview.'),
+  row('capacitor', 'Capacitor', 'cross', 'https://capacitorjs.com/', 'Wraps a web app as a native iOS and Android app.'),
+  row('ionic', 'Ionic', 'cross', 'https://ionicframework.com/', 'A UI toolkit and tooling for mobile-style web apps.'),
+  row('pwa', 'Progressive Web Apps', 'cross', 'https://web.dev/progressive-web-apps/', 'Web apps that can be installed and work offline.'),
+];

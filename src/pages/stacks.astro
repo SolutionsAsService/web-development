@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { STACKS, BY_ID, href } from '../lib/atlas';
+---
+<Base title="Stacks" desc="Plausible combinations of tools for common kinds of project." current="stacks">
+<div class="wrap">
+  <p class="eyebrow">Editorial</p><h1>Starting stacks</h1>
+  <p class="lede">A stack is a plausible combination, not a verdict. Each one is a starting point for a kind of project; swap any part for an alternative from its page.</p>
+  {STACKS.map(s => (
+    <section class="stack" id={s.id}><h2 style="margin-top:0">{s.name}</h2><p>{s.for}</p>
+      <ol>{s.picks.map(([role, id]) => <li><span>{role}</span><a href={href(`tools/${id}`)}><b>{BY_ID[id].name}</b></a></li>)}</ol></section>
+  ))}
+</div>
+</Base>

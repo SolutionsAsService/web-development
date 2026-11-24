@@ -1,0 +1,22 @@
+---
+import '../styles.css';
+import { href } from '../lib/atlas';
+const { title, desc, region, current = '' } = Astro.props;
+const NAV = [['', 'Atlas'], ['explore', 'Explore'], ['graph', 'Graph'], ['stacks', 'Stacks'], ['about', 'About']];
+const full = title === 'Web Development Atlas' ? title : `${title} · Web Development Atlas`;
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{full}</title><meta name="description" content={desc}>
+<meta name="theme-color" content="#f4efe3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c2433'/%3E%3Ccircle cx='10' cy='11' r='3' fill='%23d9a066'/%3E%3Ccircle cx='21' cy='9' r='3' fill='%236cb6d9'/%3E%3Ccircle cx='16' cy='20' r='3' fill='%237fc491'/%3E%3Ccircle cx='23' cy='23' r='3' fill='%23e58aa6'/%3E%3C/svg%3E">
+</head>
+<body data-region={region}>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href={href()}>Web Development Atlas<small>a map of the tools</small></a>
+<nav class="main" aria-label="Main">{NAV.map(([p, l]) => <a href={href(p)} aria-current={current === p ? 'page' : undefined}>{l}</a>)}</nav></div></header>
+<main id="main"><slot /></main>
+<footer><div class="wrap">Descriptions are written from general knowledge and carry no version numbers or popularity figures; every tool links to its own site. Made by SolutionsAsService. <a href={href('about')}>How this was made</a>.</div></footer>
+</body></html>

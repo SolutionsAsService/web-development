@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { TOOLS, CATEGORIES, ALT, PAIRS, STACKS } from '../lib/atlas';
+---
+<Base title="About" desc="How the Web Development Atlas is built, what it claims and what it does not." current="about">
+<div class="wrap" style="max-width:760px">
+  <p class="eyebrow">Method</p><h1>About this atlas</h1>
+  <p class="lede">An atlas shows what exists and how it connects. It does not tell you what to use.</p>
+  <h2>What is in it</h2>
+  <p>{TOOLS.length} tools in {CATEGORIES.length} categories, {ALT.length} groups of alternatives, {PAIRS.length} “builds on or pairs with” links and {STACKS.length} starting stacks. Every tool links to its own site.</p>
+  <h2>What it does not claim</h2>
+  <ul>
+    <li><b>No rankings, no popularity figures, no version numbers.</b> Those change faster than a hand-kept atlas can follow, and a ranking would turn a map into an argument. The data check refuses descriptions that contain them.</li>
+    <li><b>Descriptions are written from general knowledge.</b> Each is a plain statement of what the tool is. They are not copied from the tools’ own pages, and a project may have changed what it does since. The official site is always the authority.</li>
+    <li><b>Relations are editorial.</b> “Alternatives” means the tools do the same job. “Builds on or pairs with” is a judgement about common use, not a dependency graph.</li>
+    <li><b>Stacks are starting points.</b> They are one reasonable combination, not the right one for every project.</li>
+  </ul>
+  <h2>How it stays honest</h2>
+  <p><code>npm run validate</code> checks that every id is unique, every relation points at a real tool, every description is a short plain sentence, and no description makes a numeric or superlative claim. <code>npm run links</code> asks each tool’s website whether it still answers. Sites that refuse automated requests are reported, not silently passed.</p>
+  <h2>Adding a tool</h2>
+  <p>Add one line to a file in <code>src/data/</code>, add its relations in <code>src/data/relations.ts</code>, and run the validator. The pages, the map, the search and the graph all read the same data.</p>
+  <h2>Built with</h2>
+  <p>Astro with content generated from typed data files, and two small Preact islands (search and graph). Every page except those two ships no JavaScript.</p>
+</div>
+</Base>

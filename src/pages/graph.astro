@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import Graph from '../components/Graph.tsx';
+import { clientData } from '../lib/atlas';
+---
+<Base title="Graph" desc="The relations between web development tools drawn as a network: who builds on whom and who competes with whom." current="graph">
+<div class="wrap">
+  <p class="eyebrow">Relations</p><h1>The network</h1>
+  <p class="lede">Each dot is a tool, coloured by territory. Solid lines say one tool builds on or pairs with another; the dashed lines join alternatives. Select a dot to read about it.</p>
+  <Graph client:only="preact" data={clientData()} />
+</div>
+</Base>
