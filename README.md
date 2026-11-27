@@ -2,7 +2,7 @@
 
 A map of the tools of web development: the platform, languages and runtimes (Node.js, Deno, Bun), build tools, testing (Jest, Vitest, Playwright), UI libraries and meta-frameworks (React, Vue, Svelte, htmx, Next.js, Astro), styling, state, backend frameworks, APIs, databases, auth, CMS, hosting, developer tools and the other screens you can ship to.
 
-- **282 tools in 21 territories**, drawn as one map: each dot is a tool.
+- **282 tools in 21 territories**, drawn as one map: each mark is a tool, with its own category's colour **and** shape (21 colours checked for separation and contrast in light and dark; no two categories in a region share a shape).
 - Every tool has a page: what it is, its official site, its **alternatives**, what it **builds on or pairs with**, what is built on it, and the starting stacks it appears in.
 - **Explore** searches and filters; **Graph** draws the relations as a network; **Stacks** are editorial starting points.
 
@@ -13,7 +13,7 @@ No rankings, popularity figures or version numbers: they change faster than a ha
 ```sh
 npm install
 npm run dev        # http://localhost:4321
-npm run validate   # ids unique, relations resolve, descriptions plain, every category populated
+npm run validate   # ids unique, relations resolve, descriptions plain, every category populated, palette separation and contrast
 npm run links      # asks every tool's site whether it still answers (needs the network)
 npm run build      # validate, type-check, build to dist/
 ```

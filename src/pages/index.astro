@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { CATEGORIES, REGIONS, TOOLS, toolsIn, href } from '../lib/atlas';
+import { CATEGORIES, REGIONS, TOOLS, toolsIn, href, shapeOf, shapePath } from '../lib/atlas';
 ---
 <Base title="Web Development Atlas" desc="A map of the tools of web development: platform, languages, runtimes, frameworks, build tools, testing, data, hosting and more, each with alternatives and what it pairs with." current="">
 <div class="wrap">
@@ -14,9 +14,9 @@ import { CATEGORIES, REGIONS, TOOLS, toolsIn, href } from '../lib/atlas';
         <h2 id={`r-${r.id}`}>{r.name}</h2><p>{r.blurb}</p>
         <div class="lands">
           {CATEGORIES.filter(c => c.region === r.id).map(c => (
-            <div class="land">
-              <h3><a href={href(`category/${c.id}`)}>{c.name}</a><span>{toolsIn(c.id).length}</span></h3>
-              <div class="dots">{toolsIn(c.id).map(t => <a href={href(`tools/${t.id}`)} data-n={t.name} aria-label={t.name}><i class="dot"></i></a>)}</div>
+            <div class="land" data-cat={c.id}>
+              <h3><svg class="glyph" viewBox="-9 -9 18 18" aria-hidden="true"><path d={shapePath(shapeOf(c.id), 6)} fill="var(--c)" fill-rule="evenodd" /></svg><a href={href(`category/${c.id}`)}>{c.name}</a><span>{toolsIn(c.id).length}</span></h3>
+              <div class="dots">{toolsIn(c.id).map(t => <a href={href(`tools/${t.id}`)} data-n={t.name} aria-label={`${t.name}, ${c.name}`}><svg class="dot" viewBox="-9 -9 18 18" aria-hidden="true"><path d={shapePath(shapeOf(c.id), 6)} fill="var(--c)" fill-rule="evenodd" /></svg></a>)}</div>
             </div>
           ))}
         </div>

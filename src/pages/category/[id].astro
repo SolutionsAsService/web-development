@@ -5,9 +5,9 @@ export function getStaticPaths() { return CATEGORIES.map(c => ({ params: { id: c
 const { c } = Astro.props; const reg = REGIONS.find(r => r.id === c.region)!;
 ---
 <Base title={c.name} desc={`${c.name}: ${c.blurb}`} region={c.region}>
-<div class="wrap" data-region={c.region}>
+<div class="wrap" data-cat={c.id}>
   <p class="eyebrow">{reg.name}</p><h1>{c.name}</h1><p class="lede">{c.blurb}</p>
-  <ul class="cards">{toolsIn(c.id).map(t => <li><a class="card" href={href(`tools/${t.id}`)}><b>{t.name}</b><span>{t.what}</span></a></li>)}</ul>
+  <ul class="cards">{toolsIn(c.id).map(t => <li data-cat={c.id}><a class="card" href={href(`tools/${t.id}`)}><b>{t.name}</b><span>{t.what}</span></a></li>)}</ul>
   <div class="chips">{CATEGORIES.filter(x => x.region === c.region && x.id !== c.id).map(x => <a class="chip" href={href(`category/${x.id}`)}>{x.name}</a>)}</div>
 </div>
 </Base>

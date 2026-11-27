@@ -10,6 +10,7 @@ const tsx = process.argv.includes('--links');
 let fails = 0; const bad = m => { fails++; console.log('FAIL', m); };
 const { CATEGORIES, REGIONS } = await load('categories.ts'); const { TOOLS_A } = await load('tools-a.ts'); const { TOOLS_B } = await load('tools-b.ts'); const { TOOLS_C } = await load('tools-c.ts');
 const { ALT, PAIRS, STACKS } = await load('relations.ts');
+const pal = await import(pathToFileURL(path.join(root, 'src/lib/palette.ts')).href);
 const tools = [...TOOLS_A, ...TOOLS_B, ...TOOLS_C]; const ids = new Set(); const cats = new Set(CATEGORIES.map(c => c.id)); const regs = new Set(REGIONS.map(r => r.id));
 for (const c of CATEGORIES) if (!regs.has(c.region)) bad(`category ${c.id}: unknown region ${c.region}`);
 for (const t of tools) {
@@ -25,6 +26,18 @@ for (const c of CATEGORIES) if (!tools.some(t => t.cat === c.id)) bad(`category 
 for (const g of ALT) { if (g.length < 2) bad(`alt group too small: ${g}`); for (const i of g) if (!ids.has(i)) bad(`ALT: unknown tool ${i}`); }
 for (const [a, b] of PAIRS) { if (!ids.has(a)) bad(`PAIRS: unknown tool ${a}`); if (!ids.has(b)) bad(`PAIRS: unknown tool ${b}`); if (a === b) bad(`PAIRS: self edge ${a}`); }
 for (const s of STACKS) for (const [, id] of s.picks) if (!ids.has(id)) bad(`stack ${s.id}: unknown tool ${id}`);
+// colour and shape: every category its own, in both themes
+const look = pal.LOOKS;
+for (const c of CATEGORIES) if (!look[c.id]) bad(`category ${c.id} has no colour/shape in src/lib/palette.ts`);
+for (const theme of ['light', 'dark']) {
+  const ids = CATEGORIES.map(c => c.id), cols = ids.map(i => pal.colorOf(i, theme)); let min = 1e9, pair = '';
+  for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) { const d = pal.deltaE(cols[i], cols[j]); if (d < min) { min = d; pair = `${ids[i]}/${ids[j]}`; } }
+  if (min < 16) bad(`${theme} palette: ${pair} differ by only ΔE ${min.toFixed(1)} (need ≥ 16)`);
+  const floor = theme === 'light' ? 3 : 4.5;
+  ids.forEach((id, i) => { const c = pal.contrast(cols[i], pal.surface[theme]); if (c < floor) bad(`${theme} palette: ${id} ${cols[i]} has ${c.toFixed(2)}:1 on the card surface (need ≥ ${floor})`); });
+  console.log(`${theme} palette: ${ids.length} colours, closest pair ${pair} ΔE ${min.toFixed(1)}`);
+}
+for (const r of REGIONS) { const shapes = CATEGORIES.filter(c => c.region === r.id).map(c => look[c.id]?.shape); if (new Set(shapes).size !== shapes.length) bad(`region ${r.id}: two categories share a shape`); }
 const touched = new Set([...ALT.flat(), ...PAIRS.flat()]); const orphans = tools.filter(t => !touched.has(t.id)).map(t => t.id);
 console.log(`${tools.length} tools, ${CATEGORIES.length} categories, ${ALT.length} alternative groups, ${PAIRS.length} pairings, ${STACKS.length} stacks; ${orphans.length} tools with no relation${orphans.length ? ': ' + orphans.join(' ') : ''}`);
 if (tsx) {

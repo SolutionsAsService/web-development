@@ -4,11 +4,15 @@ import { TOOLS_B } from '../data/tools-b';
 import { TOOLS_C } from '../data/tools-c';
 import { ALT, PAIRS, STACKS } from '../data/relations';
 import type { Tool } from '../data/types';
+import { shapeOf, shapePath } from './palette';
 
 export const TOOLS: Tool[] = [...TOOLS_A, ...TOOLS_B, ...TOOLS_C];
 export const BY_ID = Object.fromEntries(TOOLS.map(t => [t.id, t])) as Record<string, Tool>;
 export const CAT_BY_ID = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
 export { CATEGORIES, REGIONS, STACKS, PAIRS, ALT };
+export { shapeOf, shapePath, colorOf } from './palette';
+import { LOOKS, regionColor } from './palette';
+export const regionCss = REGIONS.map(r => { const hues = CATEGORIES.filter(c => c.region === r.id).map(c => LOOKS[c.id].hue); return `[data-region="${r.id}"]{--cl:${regionColor(hues, 'light')};--cd:${regionColor(hues, 'dark')}}`; }).join('');
 
 const uniq = <T,>(a: T[]) => [...new Set(a)];
 export const alternativesOf = (id: string) => uniq(ALT.filter(g => g.includes(id)).flat().filter(x => x !== id));
@@ -22,7 +26,7 @@ export const href = (p = '') => `${base}/${p}`;
 /** Plain data the browser islands need. */
 export const clientData = () => ({
   tools: TOOLS.map(t => ({ id: t.id, name: t.name, cat: t.cat, what: t.what, region: regionOf(t.cat) })),
-  cats: CATEGORIES.map(c => ({ id: c.id, name: c.name, region: c.region })),
+  cats: CATEGORIES.map(c => ({ id: c.id, name: c.name, region: c.region, path: shapePath(shapeOf(c.id), 6) })),
   regions: REGIONS,
   edges: [
     ...PAIRS.map(([s, t]) => ({ s, t, k: 'pair' })),
