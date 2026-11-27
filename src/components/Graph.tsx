@@ -32,7 +32,7 @@ export default function Graph({ data }: { data: D }) {
             {(on && sel) && <text y={-11} text-anchor="middle" font-size="11" fill="var(--ink)" stroke="var(--card)" stroke-width="3" paint-order="stroke">{n.name}</text>}
           </g>; })}
       </svg></div>
-      <div class="note" style="margin-top:12px" aria-live="polite">{cur ? <span><b>{cur.name}</b>: {cur.what} <a href={`${data.base}/tools/${cur.id}`}>Open page</a></span> : 'Select a dot to highlight what it connects to.'}</div>
+      <div class="note" style="margin-top:12px" aria-live="polite">{cur ? <span><b>{cur.name}</b>: {cur.what} <a href={`${data.base}/tools/${cur.id}/`}>Open page</a></span> : 'Select a dot to highlight what it connects to.'}</div>
     </div>
   );
 }

@@ -22,7 +22,8 @@ export const stacksWith = (id: string) => STACKS.filter(s => s.picks.some(([, t]
 export const regionOf = (cat: string) => CAT_BY_ID[cat].region;
 export const toolsIn = (cat: string) => TOOLS.filter(t => t.cat === cat);
 export const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-export const href = (p = '') => `${base}/${p}`;
+/** Directory-style URLs (`/tools/htmx/`) work on every static host, with or without clean-URL rewriting. */
+export const href = (p = '') => `${base}/${p}${p && !p.endsWith('/') && !p.includes('#') ? '/' : ''}`;
 /** Plain data the browser islands need. */
 export const clientData = () => ({
   tools: TOOLS.map(t => ({ id: t.id, name: t.name, cat: t.cat, what: t.what, region: regionOf(t.cat) })),

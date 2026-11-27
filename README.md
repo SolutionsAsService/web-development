@@ -15,11 +15,11 @@ npm install
 npm run dev        # http://localhost:4321
 npm run validate   # ids unique, relations resolve, descriptions plain, every category populated, palette separation and contrast
 npm run links      # asks every tool's site whether it still answers (needs the network)
-npm run build      # validate, type-check, build to dist/
+npm run build      # validate, type-check, build to site/, then check the built pages and every internal link
 ```
 Add a tool as one line in `src/data/tools-*.ts`, then its relations in `src/data/relations.ts`.
 
 ## Stack
-Astro (static pages generated from typed data files) with two small Preact islands (search, graph). Every other page ships no JavaScript. Deployed to GitHub Pages by `.github/workflows/pages.yml`, which sets `BASE_PATH`.
+Astro (static pages generated from typed data files) with two small Preact islands (search, graph). Every other page ships no JavaScript. The built site is committed in `site/` (the Shadw host runs no build): `fluid.json` and `vercel.json` serve it from the domain root at `https://web-development.shadw.app`. `.github/workflows/pages.yml` also rebuilds with `BASE_PATH` for GitHub Pages.
 
 Made by SolutionsAsService.

@@ -21,7 +21,7 @@ export default function Explorer({ data }: { data: D }) {
         {cats.map(c => <button class="chip" aria-pressed={cat === c.id} onClick={() => setCat(cat === c.id ? '' : c.id)}>{c.name}</button>)}
       </div>
       <p aria-live="polite" style="color:var(--dim)">{hits.length} of {data.tools.length} tools</p>
-      <ul class="cards">{hits.map(t => <li data-cat={t.cat}><a class="card" href={`${data.base}/tools/${t.id}`}><b>{t.name}</b><span>{t.what}</span><em>{catName[t.cat]}</em></a></li>)}</ul>
+      <ul class="cards">{hits.map(t => <li data-cat={t.cat}><a class="card" href={`${data.base}/tools/${t.id}/`}><b>{t.name}</b><span>{t.what}</span><em>{catName[t.cat]}</em></a></li>)}</ul>
       {hits.length === 0 && <p class="note">Nothing matches. Try fewer words, or clear the filters.</p>}
     </div>
   );

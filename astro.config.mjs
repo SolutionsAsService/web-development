@@ -4,7 +4,8 @@ import preact from '@astrojs/preact';
 export default defineConfig({
   integrations: [preact()],
   base: process.env.BASE_PATH || '/',
-  trailingSlash: 'ignore',
-  build: { format: 'file' },
+  trailingSlash: 'always',
+  outDir: 'site',
+  build: { format: 'directory' },
   devToolbar: { enabled: false },
 });

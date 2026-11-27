@@ -23,7 +23,7 @@ const stacks = stacksWith(t.id); const near = toolsIn(t.cat).filter(x => x.id !=
     {by.length > 0 && <section><h2>Used by, or built on this</h2>
       <ul class="cards">{by.map(a => <li data-cat={a.cat}><a class="card" href={href(`tools/${a.id}`)}><b>{a.name}</b><span>{a.what}</span><em>{CAT_BY_ID[a.cat].name}</em></a></li>)}</ul></section>}
   </div>
-  {stacks.length > 0 && <section><h2>In these stacks</h2><div class="chips">{stacks.map(s => <a class="chip" href={href(`stacks#${s.id}`)}>{s.name}</a>)}</div></section>}
+  {stacks.length > 0 && <section><h2>In these stacks</h2><div class="chips">{stacks.map(s => <a class="chip" href={href('stacks') + `#${s.id}`}>{s.name}</a>)}</div></section>}
   {near.length > 0 && <section><h2>Also in {cat.name}</h2><div class="chips">{near.map(n => <a class="chip" href={href(`tools/${n.id}`)}>{n.name}</a>)}</div></section>}
 </div>
 </Base>
